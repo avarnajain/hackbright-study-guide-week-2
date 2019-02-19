@@ -38,7 +38,8 @@ def without_duplicates(words):
         [2, 33333, 111111]
     """
 
-    return []
+
+    return sorted(list(set(words)))
 
 
 def find_unique_common_items(items1, items2):
@@ -74,8 +75,13 @@ def find_unique_common_items(items1, items2):
         >>> sorted(find_unique_common_items(["2", "1", 2], [2, 1]))
         [2]
     """
+    item_set = set()
+    for item in items1:
+        for other_item in items2:
+            if item == other_item and type(item) == type(other_item):
+                item_set.add(item)
 
-    return []
+    return sorted(list(item_set))
 
 
 def get_sum_zero_pairs(numbers):
@@ -103,9 +109,20 @@ def get_sum_zero_pairs(numbers):
 
         >>> sort_pairs( get_sum_zero_pairs([1, 3, -1, 1, 1, 0]) )
         [[-1, 1], [0, 0]]
-    """
+        """
+    pairs = []
 
-    return []
+    for number in list(numbers):
+        for other_number in list(numbers):
+            if number + other_number == 0:
+                current_pair = sorted([number, other_number])
+                if current_pair in pairs:
+                    continue
+                else:
+                    pairs.append(current_pair)
+        
+
+    return pairs
 
 
 def top_chars(phrase):
@@ -132,8 +149,20 @@ def top_chars(phrase):
     Do not count spaces, but count all other characters.
 
     """
+    char_dict = {}
+    max_value = 0
+    return_list = []
+    for char in phrase:
+        char_dict[char] = char_dict.get(char, 0) + 1
+        if char_dict[char] > max_value and char != ' ':
+            max_char = char
+            max_value = char_dict[char]
+    
+    for char, value in char_dict.items():
+        if value == max_value:
+            return_list.append(char)
 
-    return []
+    return sorted(list(set(return_list)))
 
 #####################################################################
 # You can ignore everything below this.
